@@ -1,19 +1,9 @@
-package com.lion.iot.Service.Impl;
+package  com.lion.iot.Service.Impl;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lion.iot.Dao.DaoInterface;
+import com.lion.iot.Pojo.UserRegistrationPojo;
 import com.lion.iot.Service.ServiceInterface;
 
 public class ServiceImpl implements ServiceInterface {
@@ -22,14 +12,34 @@ public class ServiceImpl implements ServiceInterface {
 	DaoInterface di;
 
 	@Override
-	public void insert(String topic, String message) {
-		di.ins(topic, message);
+	public void registration(String username, String useremailId,String userpassword, String usermobileNo, String userotp) {
+		di.registration(username,useremailId,userpassword,usermobileNo,userotp);
 	}
-
+	
 	@Override
+	public boolean  secureLogin(String name, String password) {
+		UserRegistrationPojo obj = new UserRegistrationPojo();
+		if(obj != null) 
+		{
+			if(obj.getUserpassword().equals(password)) 
+				return true;
+			else
+				return false;
+		}
+		return false;
+		
+	}
+	
+	@Override
+	public void insertdeviceInformation(String fanValue, String washingmachineValue, String bulbValue, String lightValue,
+		String airconditionarValue, String tubelightValue, String cflValue) {
+		di.insertdeviceInformation(fanValue,washingmachineValue,bulbValue,lightValue,airconditionarValue,tubelightValue,cflValue);
+	}
+	
+/*	@Override
 	public void publish() {
-		String topicname = "/aayush/temprature";
-		String b = "5.51%4.52C";
+		String topicname = "fan";
+		String b = "1";
 		MqttClient client;
 		MemoryPersistence persistence;
 		MqttConnectOptions conn;
@@ -39,8 +49,8 @@ public class ServiceImpl implements ServiceInterface {
 		char[] accessKey = password.toCharArray();
 		String appEUI = "znvlpcqy";
 
-		for (int i = 1; i <= 100; i++) {
-
+		for(int i=0;i<=10;i++) 
+		{
 			try {
 				persistence = new MemoryPersistence();
 				client = new MqttClient(broker, appEUI, persistence);
@@ -49,32 +59,11 @@ public class ServiceImpl implements ServiceInterface {
 				conn.setPassword(accessKey);
 				conn.setUserName(appEUI);
 				client.connect(conn);
-
-				if (client.isConnected()) {
-					System.out.println("Connected..");
-				} else {
-					System.out.println("Unable to connect");
-					System.exit(0);
-				}
-
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
 				MqttMessage messagetext = new MqttMessage(b.toString().getBytes());
-				client.publish(topicname, messagetext);
-				
-				//client.setCallback(callback);
-				
-				client.subscribe("#");
-				
-			} catch (Exception x) {
-				x.printStackTrace();
+				client.publish(topicname, messagetext);				
+			   } catch (Exception x)
+			{
+			x.printStackTrace();
 			}
-		}
-	}
-
+	}*/
 }

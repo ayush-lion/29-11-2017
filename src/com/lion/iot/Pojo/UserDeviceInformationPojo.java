@@ -5,16 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+@Component
 @Entity
-@Table(name="iotdata")
-public class IOTPojo {
+@Table(name = "iotdata")
+public class UserDeviceInformationPojo {
 	@Id
 	@GeneratedValue
 	
-	@Column(name="Id")
+	@Column(name="id")
 	private Integer id;
-	
+
 	@Column(name="topic")
 	private String topic;
 	

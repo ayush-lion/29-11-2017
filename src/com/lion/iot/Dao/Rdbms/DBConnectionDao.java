@@ -30,6 +30,5 @@ public class DBConnectionDao {
 		this.sessionFactory = sessionFactory;
 		session = sessionFactory.getCurrentSession();
 		hibernateTemplate=new HibernateTemplate(sessionFactory);
-	}
-	
+	}	
 }

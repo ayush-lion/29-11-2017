@@ -4,9 +4,8 @@
     <title>CloudMQTT Websocket Console</title>
    <link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://api.cloudmqtt.com/sso/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <script src='https://api.cloudmqtt.com/sso/js/jquery.min.js' type='text/javascript'></script>
-    <script src='https://api.cloudmqtt.com/sso/js/bootstrap.min.js' type='text/javascript'></script>
-    <style>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 	<style type="text/css">
       body, input, button, select, textarea {
         font-family: 'Lato', sans-serif;
         font-size: .8em;
@@ -29,7 +28,7 @@
                           
             </form>
             <form action="http://4liongroup.com/sockets/restart" class="form-inline" method="post" onsubmit="return confirm(&#39;Are you sure you want to restart your instance?&#39;)" style="display: inline-block">
-              <button class="btn" type="submit">
+            <button class="btn" type="submit">
                 <i class="icon-refresh"></i>
                 Restart
               </button>
@@ -70,6 +69,17 @@
         pre { font-size: 11px; }
       </style>
       <script>
+      
+      alert("hllloo");
+      
+      $.ajax({
+  		url:"UserDeviceInformationOuterUrl",
+  		type:"post",
+  		success: function(data){
+   	    alert("ok");
+   	    }, 
+  	});   
+  
         var form = document.forms["send"];
         form.addEventListener("submit", function (e) {
           e.preventDefault();
@@ -124,9 +134,9 @@
           console.log(tdTopic);
           console.log(tdMsg);
           
-       	  var topic =tdTopic.innerHTML;
-       	  var message = tdMsg.innerHTML; 
-       	
+       	  var topic =tdTopic.innerHTML.replace('panwar','');
+       	  var message = tdMsg.innerHTML;
+       	     	
        	   $.ajax({
        			url:"AjaxUrl",
        			type:"post",
@@ -147,9 +157,11 @@
         
         var clientId = "ws" + Math.random();
         // Create a client instance
+        
         var client = new Paho.MQTT.Client("m21.cloudmqtt.com", 36336, clientId);
         
         // set callback handlers
+        
         client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;
         
@@ -163,14 +175,8 @@
         });
        
         // connect service with our Application and publish data
-    	$.ajax({
-    		url:"PublishUrl",
-    		type:"post",
-    		success: function(data){
-     	    alert(data);
-     	    } 
-    	});   
+    	
         
-      </script>
+      </script> 
    </body>
 </html>

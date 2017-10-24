@@ -13,12 +13,9 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	
-
-
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/akproject" />
+		<property name="url" value="jdbc:mysql://localhost:3306/iotservices" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
@@ -28,9 +25,8 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-
-				<value>com.lion.iot.Pojo.IOTPojo</value>				
-				
+				<value>com.lion.iot.Pojo.UserDeviceInformationPojo</value>
+				<value>com.lion.iot.Pojo.UserRegistrationPojo</value>						
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -41,7 +37,4 @@
 			</props>
 		</property>
 	</bean>
-
-
-
 </beans>  
