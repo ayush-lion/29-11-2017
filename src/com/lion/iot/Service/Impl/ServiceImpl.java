@@ -26,44 +26,11 @@ public class ServiceImpl implements ServiceInterface {
 			else
 				return false;
 		}
-		return false;
-		
+		return false;	
 	}
-	
+
 	@Override
-	public void insertdeviceInformation(String fanValue, String washingmachineValue, String bulbValue, String lightValue,
-		String airconditionarValue, String tubelightValue, String cflValue) {
-		di.insertdeviceInformation(fanValue,washingmachineValue,bulbValue,lightValue,airconditionarValue,tubelightValue,cflValue);
-	}
-	
-/*	@Override
-	public void publish() {
-		String topicname = "fan";
-		String b = "1";
-		MqttClient client;
-		MemoryPersistence persistence;
-		MqttConnectOptions conn;
-
-		String broker = "tcp://m21.cloudmqtt.com:16336";
-		String password = "4EkhqK7ma9Pa";
-		char[] accessKey = password.toCharArray();
-		String appEUI = "znvlpcqy";
-
-		for(int i=0;i<=10;i++) 
-		{
-			try {
-				persistence = new MemoryPersistence();
-				client = new MqttClient(broker, appEUI, persistence);
-				conn = new MqttConnectOptions();
-				conn.setCleanSession(true);
-				conn.setPassword(accessKey);
-				conn.setUserName(appEUI);
-				client.connect(conn);
-				MqttMessage messagetext = new MqttMessage(b.toString().getBytes());
-				client.publish(topicname, messagetext);				
-			   } catch (Exception x)
-			{
-			x.printStackTrace();
-			}
-	}*/
+	public void insertdeviceInformation(String topic1, String message1) {
+		di.insertdeviceInformation(topic1,message1);
+	}	
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 @Component
 @Entity
-@Table(name = "iotdata")
+@Table(name = "userdeviceinformation")
 public class UserDeviceInformationPojo {
 	@Id
 	@GeneratedValue
@@ -19,33 +19,52 @@ public class UserDeviceInformationPojo {
 	@Column(name="id")
 	private Integer id;
 
-	@Column(name="topic")
-	private String topic;
+	@Column(name="userid")
+	private Integer userid;
 	
-	@Column(name="message")
-	private String message;
+	@Column(name="devicename")
+	private String devicename;
+	
+
+	@Column(name="state")
+	private String state;
+
 
 	public Integer getId() {
 		return id;
 	}
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getTopic() {
-		return topic;
+
+	public Integer getUserid() {
+		return userid;
 	}
 
-	public void setTopic(String topic) {
-		this.topic = topic;
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
 	}
 
-	public String getMessage() {
-		return message;
+
+	public String getDevicename() {
+		return devicename;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+
+	public void setDevicename(String devicename) {
+		this.devicename = devicename;
+	}
+
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 }

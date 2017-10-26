@@ -1,5 +1,7 @@
 package com.lion.iot.Controller;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 import com.lion.iot.Service.ServiceInterface;
 
@@ -24,41 +25,54 @@ public class HomeController {
 	@Autowired
 	ServiceInterface si;
 
-	@RequestMapping(value = "/UserDeviceInformationOuterUrl", method = RequestMethod.POST)
+	@RequestMapping(value = "/SubscribeInformationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String userDeviceSubscribe(@RequestBody String subscribe) throws ParseException, MqttException {
-	
-		JSONParser parser = new JSONParser();
-		JSONObject json = (JSONObject) parser.parse(subscribe);
-
-		String topicname = (String) json.get("name");
-		String b = (String) json.get("value");
 		
 		MqttClient client;
 		MemoryPersistence persistence;
 		MqttConnectOptions conn;
-		String broker = "tcp://m13.cloudmqtt.com:17073";
-		String password = "nEy1r63gevm0";
+		String broker = "tcp://m21.cloudmqtt.com:16336";
+		String password = "4EkhqK7ma9Pa";
 		char[] accessKey = password.toCharArray();
-		String appEUI = "raoccbbo";
-
-		for(int i=0;i<=10;i++) 
-		{
+		String appEUI = "znvlpcqy";
+			
 				persistence = new MemoryPersistence();
 				client = new MqttClient(broker, appEUI, persistence);
 				conn = new MqttConnectOptions();
 				conn.setCleanSession(true);
 				conn.setPassword(accessKey);
 				conn.setUserName(appEUI);
-				client.connect(conn);
-				System.out.println("connect ho gaya");
-				MqttMessage messagetext = new MqttMessage(b.toString().getBytes());
-				client.publish(topicname, messagetext);	
-				client.subscribe(topicname);
-		}	
-		/*si.insertdeviceInformation(fanValue, washingmachineValue, bulbValue, lightValue, airconditionarValue,tubelightValue,cflValue);*/
-		return "ok";
-	}
+		        client.connect(conn);
+		        System.out.println("device connected");
+		        
+		        client.subscribe("/name/harvey/#");
+		        System.out.println("subscribe has been sucessfully");
+
+		        client.setCallback(new MqttCallback() {
+
+					public void messageArrived(String topic, MqttMessage message) throws Exception {
+						String topic1 = topic;
+			            String message1= message.toString();
+		            	
+		            	System.out.println("\nReceived a Message!" +
+		                    "\n\t Topic:   " + topic1 +
+		                    "\n\t Message: " + new String(message.getPayload()));
+		            	
+		            	 si.insertdeviceInformation(topic1, message1);
+		            }
+
+		            public void connectionLost(Throwable cause) {
+		                System.out.println("Connection to Solace broker lost!" + cause.getMessage());
+		            }
+
+		            public void deliveryComplete(IMqttDeliveryToken token) {
+		            	System.out.println("delivery Complete");
+		            }
+		        });
+		       
+	return "ok";
+    }
 	
 	@RequestMapping(value = "/RegistrationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
@@ -107,5 +121,39 @@ public class HomeController {
 	public String Logout(@RequestBody String insert) throws ParseException 
 	{
 		return "Logout";
+	}
+	
+	@RequestMapping(value = "/PublishInformationOuterUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public String userDevicePublish(@RequestBody String subscribe) throws ParseException, MqttException {
+	
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(subscribe);
+
+		String topicname = (String) json.get("name");
+		String b = (String) json.get("value");
+		
+		MqttClient client;
+		MemoryPersistence persistence;
+		MqttConnectOptions conn;
+		String broker = "tcp://m21.cloudmqtt.com:16336";
+		String password = "4EkhqK7ma9Pa";
+		char[] accessKey = password.toCharArray();
+		String appEUI = "znvlpcqy";
+
+		for(int i=0;i<=10;i++) 
+		{
+				persistence = new MemoryPersistence();
+				client = new MqttClient(broker, appEUI, persistence);
+				conn = new MqttConnectOptions();
+				conn.setCleanSession(true);
+				conn.setPassword(accessKey);
+				conn.setUserName(appEUI);
+				client.connect(conn);
+				System.out.println("connect ho gaya");
+				MqttMessage messagetext = new MqttMessage(b.toString().getBytes());
+				client.publish(topicname, messagetext);	
+		 }
+		return "ok";
 	}
 }
