@@ -25,40 +25,32 @@ public class UserDeviceInformationPojo {
 	@Column(name="devicename")
 	private String devicename;
 	
-
 	@Column(name="state")
 	private String state;
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public Integer getUserid() {
 		return userid;
 	}
 
-
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
-
 
 	public String getDevicename() {
 		return devicename;
 	}
 
-
 	public void setDevicename(String devicename) {
 		this.devicename = devicename;
 	}
-
 
 	public String getState() {
 		return state;

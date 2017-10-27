@@ -1,4 +1,6 @@
-package  com.lion.iot.Service.Impl;
+package com.lion.iot.Service.Impl;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,25 +14,26 @@ public class ServiceImpl implements ServiceInterface {
 	DaoInterface di;
 
 	@Override
-	public void registration(String username, String useremailId,String userpassword, String usermobileNo, String userotp) {
-		di.registration(username,useremailId,userpassword,usermobileNo,userotp);
+	public void registration(String username, String useremailId, String userpassword, String usermobileNo,
+			String userotp) {
+		di.registration(username, useremailId, userpassword, usermobileNo, userotp);
 	}
-	
+
 	@Override
-	public boolean  secureLogin(String name, String password) {
-		UserRegistrationPojo obj = new UserRegistrationPojo();
-		if(obj != null) 
-		{
-			if(obj.getUserpassword().equals(password)) 
+	public boolean secureLogin(String name, String password) {
+		List<UserRegistrationPojo> obj = di.secureLogin();
+		if(obj.size()!=0) {
+		for (UserRegistrationPojo login : obj) {
+			if(login.getUsername().equals(name) && login.getUserpassword().equals(password)) {
 				return true;
-			else
-				return false;
+				}
+			}
 		}
 		return false;	
 	}
 
 	@Override
 	public void insertdeviceInformation(String topic1, String message1) {
-		di.insertdeviceInformation(topic1,message1);
-	}	
+		di.insertdeviceInformation(topic1, message1);
+	}
 }
