@@ -15,9 +15,9 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/iotservices" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="url" value="jdbc:mysql://iotservices.cpeyvgupmjfr.us-east-2.rds.amazonaws.com:3306/iotServices" />
+		<property name="username" value="dev_ayush" />
+		<property name="password" value="11ics104" />
 	</bean>
 
 	<bean id="sessionFactory"

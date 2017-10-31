@@ -25,25 +25,26 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 			obj.setDevicename(abc);
 			obj.setState(message1);
 			hibernateTemplate.save(obj);
-		} else {
-			for (UserDeviceInformationPojo us : emp) {
-				obj.setId(us.getId());
-				obj.setDevicename(abc);
-				obj.setState(message1);
-				hibernateTemplate.update(obj);
-			}
+		} 
+		else 
+		{
+		for (UserDeviceInformationPojo us : emp) 
+		{
+			obj.setId(us.getId());
+			obj.setDevicename(abc);
+			obj.setState(message1);
+			hibernateTemplate.update(obj);
 		}
 	}
+}
 
 	@Override
-	public void registration(String username, String useremailId, String userpassword, String usermobileNo,
-			String userotp) {
+	public void registration(String username, String useremailId, String userpassword, String usermobileNo) {
 		UserRegistrationPojo obj = new UserRegistrationPojo();
 		obj.setUsername(username);
 		obj.setUseremailid(useremailId);
 		obj.setUserpassword(userpassword);
 		obj.setUsermobileno(usermobileNo);
-		obj.setUserotp(userotp);
 		hibernateTemplate.save(obj);
 	}
 
@@ -52,7 +53,16 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 		UserRegistrationPojo obj = new UserRegistrationPojo();
 		DetachedCriteria cre = DetachedCriteria.forClass(UserRegistrationPojo.class);
 		java.util.List<UserRegistrationPojo> emp = hibernateTemplate.findByCriteria(cre);
-		
+		for (UserRegistrationPojo us : emp) 
+		{		
+		}
 		return emp;
+	}
+
+	@Override
+	public List<UserDeviceInformationPojo> recentdata() {
+		DetachedCriteria cre = DetachedCriteria.forClass(UserDeviceInformationPojo.class);
+		java.util.List<UserDeviceInformationPojo> device = hibernateTemplate.findByCriteria(cre);
+		return device;
 	}
 }
