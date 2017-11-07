@@ -39,12 +39,12 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 }
 
 	@Override
-	public void registration(String username, String useremailId, String userpassword, String usermobileNo) {
+	public void registration(String username,String usermobileNo, String useremailId, String userpassword) {
 		UserRegistrationPojo obj = new UserRegistrationPojo();
 		obj.setUsername(username);
+		obj.setUsermobileno(usermobileNo);
 		obj.setUseremailid(useremailId);
 		obj.setUserpassword(userpassword);
-		obj.setUsermobileno(usermobileNo);
 		hibernateTemplate.save(obj);
 	}
 

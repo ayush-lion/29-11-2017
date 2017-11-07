@@ -8,11 +8,13 @@ import com.lion.iot.Pojo.UserDeviceInformationPojo;
 
 public interface ServiceInterface {
 
-	void registration(String username, String useremailId, String userpassword, String usermobileNo);
+	void registration(String username,  String usermobileNo,String useremailId, String userpassword);
 
 	boolean secureLogin(String email, String password, HttpSession session);
 
 	void insertdeviceInformation(String topic1, String message1);
 
 	List<UserDeviceInformationPojo> recentdata();
+
+	boolean secureLogin(String email, String password);
 }

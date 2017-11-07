@@ -38,41 +38,7 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
-
-	/*
-	 * @RequestMapping(value = "/SubscribeInformationOuterUrl", method =
-	 * RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String userDeviceSubscribe(@RequestBody String
-	 * subscribe,HttpSession session) throws ParseException, MqttException {
-	 * System.out.println("hello subscribe"); System.out.println(subscribe);
-	 * JSONParser parser = new JSONParser(); JSONObject json = (JSONObject)
-	 * parser.parse(subscribe);
-	 * 
-	 * String topic = (String) json.get("topic"); String message = (String)
-	 * json.get("message");
-	 * 
-	 * 
-	 * LoginBean admin = (LoginBean) session.getAttribute("admin"); int id
-	 * =admin.getUserid();
-	 * System.out.println("id=============="+session.getAttribute("admin"));
-	 * //si.insertdeviceInformation(topic, message,id);
-	 * 
-	 * return "ok"; }
-	 */
-
-	/*
-	 * @RequestMapping(value = "/SecureLoginUrl", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String Login(@RequestBody String insert) throws
-	 * ParseException { JSONParser parser = new JSONParser(); JSONObject json =
-	 * (JSONObject) parser.parse(insert); String name = (String) json.get("email");
-	 * String password = (String) json.get("password");
-	 * 
-	 * if (si.secureLogin(name, password)) { return "login successFully"; } else {
-	 * return "Incorrect LoginId or Password"; } }
-	 */
-
+	
 	@RequestMapping(value = "/SubscribeInformationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String userDeviceSubscribe(@RequestBody String subscribe) throws ParseException, MqttException {
@@ -121,53 +87,27 @@ public class HomeController {
 		});
 		return "ok";
 	}
-
-	@RequestMapping(value = "/secureLoginUrl", method = RequestMethod.POST)
-	public String login(@ModelAttribute LoginDetail login, HttpSession session, Model model) throws ParseException {
-		System.out.println("hello login=====================" + login.getEmail());
-		String target = "";
-		String email = login.getEmail();
-		String password = login.getPassword();
-		if (email.length() != 0 && password.length() != 0) {
-			if (si.secureLogin(email, password, session)) {
-				System.out.println("successs");
-				target = "details";
-
-				List<UserDeviceInformationPojo> device = si.recentdata();
-				for (UserDeviceInformationPojo devicedata : device) {
-					System.out.println(devicedata.getDevicename());
-					System.out.println(devicedata.getState());
-				}
-				model.addAttribute("device", device);
-
-				return target;
-			} else {
-				target = "redirect:/Login";
-			}
+	
+	@RequestMapping(value = "/SecureOuterLoginUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public String Login(@RequestBody String insert) throws ParseException {
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(insert);
+		String email = (String) json.get("email");
+		String password = (String) json.get("password");
+		System.out.println("hit hora h");
+		if (si.secureLogin(email, password)) 
+		{
+			return "ok";
+		} 
+		else 
+		{
+			return "Incorrect LoginId or Password";
 		}
-		return "redirect:/Login";
-
 	}
-
-	@RequestMapping(value = "/RegistrationUrl")
-	public String registration(@ModelAttribute UserRegistrationPojo user) {
-
-		String name = user.getUsername();
-		String email = user.getUseremailid();
-		String password = user.getUserpassword();
-		String mobile = user.getUsermobileno();
-		String target = "";
-		if (name != null && email != null && password != null && mobile != null) {
-			si.registration(name, email, password, mobile);
-			System.out.println("=============signup");
-			target = "redirect:/Login";
-		} else {
-			return "fill all fields";
-		}
-		return target;
-	}
-
-	/*@RequestMapping(value = "/RegistrationOuterUrl", method = RequestMethod.POST)
+	
+	
+	@RequestMapping(value = "/RegistrationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String registrationOuter(@RequestBody String insert) throws ParseException {
 
@@ -181,28 +121,18 @@ public class HomeController {
 		String usermobileNo = (String) json.get("mobile");
 		String userpassword = (String) json.get("password");
 
-		if (username != null && useremailId != null && userpassword != null && usermobileNo != null) {
+		if (username != null && useremailId != null && userpassword != null && usermobileNo != null)
+		{
 			si.registration(username, useremailId, userpassword, usermobileNo);
 			return "ok";
-		} else {
+		} 
+		else 
+		{
 			return "fill all fields";
 		}
-	}*/
-
-	@RequestMapping(value = "/LoginPageUrl", method = RequestMethod.POST)
-	@ResponseBody
-	public String LoginPage(@RequestBody String retrive) {
-
-		return "ok";
 	}
-
-	@RequestMapping(value = "/SecureLogoutUrl", method = RequestMethod.POST)
-	@ResponseBody
-	public String Logout(@RequestBody String insert) throws ParseException {
-		return "/Logout";
-	}
-
-	/*@RequestMapping(value = "/PublishInformationOuterUrl", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/PublishInformationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String userDevicePublish(@RequestBody String subscribe) throws ParseException, MqttException {
 
@@ -234,7 +164,48 @@ public class HomeController {
 		client.publish(topicname, messagetext);
 		System.out.println("publish ho gaya h bhai");
 		return "ok";
-	}*/
+	}
+	
+	@RequestMapping(value = "/LoginPageUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public String LoginPage(@RequestBody String retrive) {
+
+		return "ok";
+	}
+
+	@RequestMapping(value = "/secureLoginUrl", method = RequestMethod.POST)
+	public String login(@ModelAttribute LoginDetail login, HttpSession session, Model model) throws ParseException {
+		System.out.println("hello login=====================" + login.getEmail());
+		String target = "";
+		String email = login.getEmail();
+		String password = login.getPassword();
+		if (email.length() != 0 && password.length() != 0) {
+			if (si.secureLogin(email, password, session)) {
+				System.out.println("successs");
+				target = "details";
+
+				List<UserDeviceInformationPojo> device = si.recentdata();
+				for (UserDeviceInformationPojo devicedata : device) {
+					System.out.println(devicedata.getDevicename());
+					System.out.println(devicedata.getState());
+				}
+				model.addAttribute("device", device);
+
+				return target;
+			} else
+				{
+				target = "redirect:/Login";
+				}
+		}
+		return "redirect:/Login";
+	}
+	
+	@RequestMapping(value = "/SecureLogoutUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public String Logout(@RequestBody String insert) throws ParseException {
+		return "/Logout";
+	}
+
 	
 	
 	@RequestMapping(value = "/PublishInformationUrl", method = RequestMethod.POST)
@@ -265,6 +236,27 @@ public class HomeController {
 		System.out.println("publish ho gaya h bhai");
 		return "ok";
 	}
+	
+	@RequestMapping(value = "/RegistrationUrl")
+	public String registration(@ModelAttribute UserRegistrationPojo user) {
+
+		System.out.println("contrtoller");
+		String name = user.getUsername();
+		String email = user.getUseremailid();
+		String password = user.getUserpassword();
+		String mobile = user.getUsermobileno();
+		String target = "";
+		if (name != null && email != null && password != null && mobile != null) {
+			si.registration(name, mobile,email,password);
+			System.out.println("=============signup");
+			target = "redirect:/Login";
+		} else {
+			return "fill all fields";
+		}
+		return target;
+	}
+	
+	
 	@RequestMapping(value = "/recentDevice", method = RequestMethod.POST)
 	public String recent(Model map) {
 		return "ok";

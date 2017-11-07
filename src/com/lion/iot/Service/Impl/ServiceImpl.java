@@ -18,8 +18,9 @@ public class ServiceImpl implements ServiceInterface {
 	DaoInterface di;
 
 	@Override
-	public void registration(String username, String useremailId, String userpassword, String usermobileNo) {
-		di.registration(username, useremailId, userpassword, usermobileNo);
+	public void registration(String username,String usermobileNo, String useremailId, String userpassword) {
+		System.out.println("aara h service p");
+		di.registration(username, usermobileNo,useremailId, userpassword);
 	}
 
 	@Override
@@ -35,8 +36,29 @@ public class ServiceImpl implements ServiceInterface {
 				user.setUseremailid(login.getUseremailid());
 				user.setUsermobileno(login.getUsermobileno());
 				user.setUserpassword(login.getUserpassword());
-				user.setUserotp(login.getUserotp());
 				session.setAttribute("admin", user);
+				return true;
+				}
+			}
+		}
+		return false;	
+	}
+	
+
+	@Override
+	public boolean secureLogin(String email, String password) {
+		
+		List<UserRegistrationPojo> obj = di.secureLogin();
+		
+		if(obj.size()!=0) {
+		for (UserRegistrationPojo login : obj) {
+			if(login.getUseremailid().equals(email) && login.getUserpassword().equals(password)) {
+				LoginBean user = new LoginBean();
+				user.setUserid(login.getUserid());
+				user.setUsername(login.getUsername());
+				user.setUseremailid(login.getUseremailid());
+				user.setUsermobileno(login.getUsermobileno());
+				user.setUserpassword(login.getUserpassword());
 				return true;
 				}
 			}

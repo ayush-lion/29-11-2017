@@ -23,18 +23,16 @@ public class UserRegistrationPojo {
 	@Column(name="username")
 	private String username;
 	
+	@Column(name="usermobileno")
+	private String  usermobileno;
+
+	
 	@Column(name="useremailid")
 	private String useremailid;
 	
 	@Column(name="userpassword")
 	private String userpassword;
 	
-	@Column(name="usermobileno")
-	private String  usermobileno;
-
-	@Column(name="userotp")
-	private String userotp;
-
 	public Integer getUserid() {
 		return userid;
 	}
@@ -73,13 +71,5 @@ public class UserRegistrationPojo {
 
 	public void setUsermobileno(String usermobileno) {
 		this.usermobileno = usermobileno;
-	}
-
-	public String getUserotp() {
-		return userotp;
-	}
-
-	public void setUserotp(String userotp) {
-		this.userotp = userotp;
 	}
 }
