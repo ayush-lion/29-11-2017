@@ -8,7 +8,7 @@ import com.lion.iot.Pojo.UserDeviceInformationPojo;
 
 public interface ServiceInterface {
 
-	void registration(String username,  String usermobileNo,String useremailId, String userpassword);
+	void registration(String username,String usermobileNo, String useremailId, String userpassword);
 
 	boolean secureLogin(String email, String password, HttpSession session);
 

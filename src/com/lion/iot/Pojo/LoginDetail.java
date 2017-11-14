@@ -1,6 +1,8 @@
 package com.lion.iot.Pojo;
 
-public class LoginDetail {
+import java.io.Serializable;
+
+public class LoginDetail implements Serializable{
 private String email;
 private String password;
 

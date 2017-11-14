@@ -118,12 +118,12 @@ public class HomeController {
 
 		String username = (String) json.get("name");
 		String useremailId = (String) json.get("email");
-		String usermobileNo = (String) json.get("mobile");
 		String userpassword = (String) json.get("password");
+		String usermobileNo = (String) json.get("mobile");
 
 		if (username != null && useremailId != null && userpassword != null && usermobileNo != null)
 		{
-			si.registration(username, useremailId, userpassword, usermobileNo);
+			si.registration(username,  usermobileNo,useremailId, userpassword);
 			return "ok";
 		} 
 		else 
@@ -169,8 +169,7 @@ public class HomeController {
 	@RequestMapping(value = "/LoginPageUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String LoginPage(@RequestBody String retrive) {
-
-		return "ok";
+	return "ok";
 	}
 
 	@RequestMapping(value = "/secureLoginUrl", method = RequestMethod.POST)
@@ -206,8 +205,6 @@ public class HomeController {
 		return "/Logout";
 	}
 
-	
-	
 	@RequestMapping(value = "/PublishInformationUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String userDevicePublish(String topicname, String b) throws ParseException, MqttException {
@@ -255,7 +252,6 @@ public class HomeController {
 		}
 		return target;
 	}
-	
 	
 	@RequestMapping(value = "/recentDevice", method = RequestMethod.POST)
 	public String recent(Model map) {

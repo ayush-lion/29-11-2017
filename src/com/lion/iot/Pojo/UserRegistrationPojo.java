@@ -1,5 +1,7 @@
 package com.lion.iot.Pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,26 +14,24 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "userregistration")
 
-public class UserRegistrationPojo {
+public class UserRegistrationPojo implements Serializable {
 
 	@Id
 	@GeneratedValue
-	
 	@Column(name="userid")
 	private Integer userid;
 
 	@Column(name="username")
 	private String username;
 	
-	@Column(name="usermobileno")
-	private String  usermobileno;
-
-	
 	@Column(name="useremailid")
 	private String useremailid;
 	
 	@Column(name="userpassword")
 	private String userpassword;
+	
+	@Column(name="usermobileno")
+	private String  usermobileno;
 	
 	public Integer getUserid() {
 		return userid;

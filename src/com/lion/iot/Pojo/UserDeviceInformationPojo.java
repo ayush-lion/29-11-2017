@@ -15,9 +15,6 @@ import org.springframework.stereotype.Service;
 public class UserDeviceInformationPojo {
 	@Id
 	@GeneratedValue
-	
-	@Column(name="id")
-	private Integer id;
 
 	@Column(name="userid")
 	private Integer userid;
@@ -27,15 +24,7 @@ public class UserDeviceInformationPojo {
 	
 	@Column(name="state")
 	private String state;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	
 	public Integer getUserid() {
 		return userid;
 	}

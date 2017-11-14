@@ -18,9 +18,9 @@ public class ServiceImpl implements ServiceInterface {
 	DaoInterface di;
 
 	@Override
-	public void registration(String username,String usermobileNo, String useremailId, String userpassword) {
+	public void registration(String username,String usermobileNo,String useremailId, String userpassword) {
 		System.out.println("aara h service p");
-		di.registration(username, usermobileNo,useremailId, userpassword);
+		di.registration(username,usermobileNo,useremailId, userpassword);
 	}
 
 	@Override
@@ -44,7 +44,6 @@ public class ServiceImpl implements ServiceInterface {
 		return false;	
 	}
 	
-
 	@Override
 	public boolean secureLogin(String email, String password) {
 		

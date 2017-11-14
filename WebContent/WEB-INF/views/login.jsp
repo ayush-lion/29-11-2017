@@ -7,7 +7,6 @@
 			$("#loginForm").submit();
 	} 
 	function signup(){
-		
 		$("#signupForm").submit();
 	}
 	

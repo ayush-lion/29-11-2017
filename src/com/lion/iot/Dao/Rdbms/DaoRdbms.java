@@ -30,7 +30,6 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 		{
 		for (UserDeviceInformationPojo us : emp) 
 		{
-			obj.setId(us.getId());
 			obj.setDevicename(abc);
 			obj.setState(message1);
 			hibernateTemplate.update(obj);
@@ -39,12 +38,12 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 }
 
 	@Override
-	public void registration(String username,String usermobileNo, String useremailId, String userpassword) {
+	public void registration(String username,String usermobileNo,String useremailId, String userpassword) {
 		UserRegistrationPojo obj = new UserRegistrationPojo();
 		obj.setUsername(username);
-		obj.setUsermobileno(usermobileNo);
 		obj.setUseremailid(useremailId);
 		obj.setUserpassword(userpassword);
+		obj.setUsermobileno(usermobileNo);
 		hibernateTemplate.save(obj);
 	}
 
