@@ -34,12 +34,8 @@
 		$.ajax({
 			url :"PublishInformationUrl",
 			type : "post",
-			data : {
-				topicname : topicname,
-				b : b
-			},
-			success : function(data) {
-				
+			data : {topicname : topicname,b : b},
+			success : function(data) {		
 			},
 			error : function() {
 			}
@@ -53,10 +49,7 @@
 		$.ajax({
 			url :"PublishInformationUrl",
 			type : "post",
-			data : {
-				topicname : topicname,
-				b : b
-			},
+			data : {topicname : topicname,b : b},
 			success : function(data) {
 				
 			},

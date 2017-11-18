@@ -4,10 +4,31 @@
 <script>
 	
 	function login(){
-			$("#loginForm").submit();
+		$.ajax({
+			type:"POST",
+			url:"secureLoginUrl",
+			data:$("#loginForm").serialize(),
+			success:function(res){	
+			alert("ok");
+			},
+			error:function(){
+			}
+		});
 	} 
-	function signup(){
-		$("#signupForm").submit();
+	
+	function signup()
+	{		
+		$.ajax({
+			type:"POST",
+			url:"RegistrationUrl",
+			data:$("#signupForm").serialize(),
+			success:function(data){	
+			alert(data);
+			},
+			error:function(){
+			alert("error");	
+			}
+		});
 	}
 	
 </script>
@@ -23,7 +44,7 @@
 		<div class="tab-content">
 			<div id="login">
 				<h1>Welcome Back!</h1>
-				<form action="/iotServices/secureLoginUrl" id="loginForm" method="post">
+				<form id="loginForm">
 					<div class="field-wrap">
 						<label>Email Address<span class="req" >*</span>
 						</label><input type="email" name="email" id="loginemailid" required="required" />
@@ -40,7 +61,7 @@
 			</div>
 			<div id="signup">
 				<h1>Sign Up for Free</h1>
-				<form id="signupForm" action="/iotServices/RegistrationUrl" method="post">
+				<form id="signupForm">
 					<div class="top-row">
 						<div class="field-wrap">
 							<label> UserName<span class="req">*</span>
