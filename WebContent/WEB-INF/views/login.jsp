@@ -3,19 +3,9 @@
 <head>
 <script>
 	
-	function login(){
-		$.ajax({
-			type:"POST",
-			url:"secureLoginUrl",
-			data:$("#loginForm").serialize(),
-			success:function(res){	
-			alert("ok");
-			},
-			error:function(){
-			}
-		});
-	} 
-	
+function login(){
+	$("#loginForm").submit();
+}
 	function signup()
 	{		
 		$.ajax({
@@ -26,7 +16,6 @@
 			alert(data);
 			},
 			error:function(){
-			alert("error");	
 			}
 		});
 	}
@@ -44,7 +33,7 @@
 		<div class="tab-content">
 			<div id="login">
 				<h1>Welcome Back!</h1>
-				<form id="loginForm">
+				<form action="secureLoginUrl" id="loginForm" method="post">
 					<div class="field-wrap">
 						<label>Email Address<span class="req" >*</span>
 						</label><input type="email" name="email" id="loginemailid" required="required" />
@@ -59,7 +48,7 @@
 					<button class="button button-block" onclick="login()"/>Log In</button>
 				</form>
 			</div>
-			<div id="signup">
+			<div id="signup"  >
 				<h1>Sign Up for Free</h1>
 				<form id="signupForm">
 					<div class="top-row">

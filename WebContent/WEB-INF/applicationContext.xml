@@ -25,6 +25,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
+				<value>com.lion.iot.Pojo.LoginNewPojo</value>
 				<value>com.lion.iot.Pojo.UserDeviceInformationPojo</value>
 				<value>com.lion.iot.Pojo.UserRegistrationPojo</value>						
 			</list>
