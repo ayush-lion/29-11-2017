@@ -40,10 +40,10 @@ public class ServicesController {
 		MemoryPersistence persistence;
 		MqttConnectOptions conn;
 		
-		String broker = "tcp://m14.cloudmqtt.com:14634";
-		String password = "hUSJvHaANFCx";
+		String broker = "tcp://m13.cloudmqtt.com:11855";
+		String password = "z1m3gr0y-7b8";
 		char[] accessKey = password.toCharArray();
-		String appEUI = "rfqiqnyj";
+		String appEUI = "mizbloui";
 		
 		persistence = new MemoryPersistence();
 		client = new MqttClient(broker, appEUI, persistence);
@@ -53,31 +53,29 @@ public class ServicesController {
 		conn.setUserName(appEUI);
 		client.connect(conn);
 		System.out.println("device connected");
-
-		client.subscribe("/name/harvey/#");
 		System.out.println("subscribe has been sucessfully");
 
+		
 		client.setCallback(new MqttCallback() {
-
+			
 			public void messageArrived(String topic, MqttMessage message) throws Exception {
 				String topic1 = topic;
 				String message1 = message.toString();
 				
-				System.out.println("hello");
-				
 				System.out.println("\n Received a Message!" + "\n\t Topic:   " + topic1 + "\n\t Message: "
 				+ new String(message.getPayload()));
 				
-				si.insertdeviceInformation(topic1, message1);
-	
+			   si.insertdeviceInformation(topic1, message1);
 			}
 			public void connectionLost(Throwable cause) {
 				System.out.println("Connection to Solace broker lost!" + cause.getMessage());
 			}
+			
 			public void deliveryComplete(IMqttDeliveryToken token) {
 				System.out.println("delivery Complete");
 			}
 		});
+		client.subscribe("/name/harvey/#");
 		return "ok";
 	}
 	

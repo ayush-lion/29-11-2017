@@ -14,11 +14,11 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 
 	@Override
 	public  boolean insertdeviceInformation(String topic1, String message1) {
-		int topi = topic1.lastIndexOf('/')+1;
-		String abc  = topic1.substring(topi, topic1.length());
+		/*int topi = topic1.lastIndexOf('/')+1;
+		String abc  = topic1.substring(topi, topic1.length());*/
 		
 		UserDeviceInformationPojo obj = new UserDeviceInformationPojo();
-		DetachedCriteria cre = DetachedCriteria.forClass(UserDeviceInformationPojo.class);
+	/*	DetachedCriteria cre = DetachedCriteria.forClass(UserDeviceInformationPojo.class);
 		java.util.List<UserDeviceInformationPojo> emp = hibernateTemplate.findByCriteria(cre.add(Restrictions.like("devicename", abc, MatchMode.EXACT)));
 
 		if (emp.size() == 0) {
@@ -30,7 +30,11 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 		{
 			obj.setState(message1);
 			hibernateTemplate.update(obj);
-	    }
+	    }*/
+		
+		obj.setDevicename(topic1);
+		obj.setState(message1);
+		hibernateTemplate.save(obj);
 		return true;
   }
 
