@@ -3,7 +3,6 @@ package com.lion.iot.Service;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
 import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 
@@ -13,7 +12,7 @@ public interface ServiceInterface {
 
 	boolean secureLogin(String email, String password, HttpSession session);
 
-	boolean insertdeviceInformation(String topic1, String message1);
+	void insertdeviceInformation(String topic1, String message1);
 
 	List<UserDeviceInformationPojo> recentdata();
 
@@ -22,4 +21,6 @@ public interface ServiceInterface {
 	boolean newRegistration(String name, String email);
 
 	List<LoginNewPojo> getEntries();
+
+	void insertdevice(String appliencename, String appliencestate);
 }

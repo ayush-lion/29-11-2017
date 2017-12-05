@@ -1,35 +1,23 @@
 package com.lion.iot.Controller;
 
-import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import com.google.gson.Gson;
 import com.lion.iot.Pojo.LoginDetail;
-import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 import com.lion.iot.Pojo.UserRegistrationPojo;
 import com.lion.iot.Service.ServiceInterface;
@@ -50,7 +38,6 @@ public class HomeController {
 	@RequestMapping(value = "/LoginPageUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String LoginPage(@RequestBody String retrive) {
-
 		return "ok";
 	}
 
@@ -63,8 +50,8 @@ public class HomeController {
 		if (email.length() != 0 && password.length() != 0) {
 			if (si.secureLogin(email, password, session)) {
 				System.out.println("successs");
-				target = "details";
-
+				target = "userPanel";
+				
 				List<UserDeviceInformationPojo> device = si.recentdata();
 				for (UserDeviceInformationPojo devicedata : device) {
 					System.out.println(devicedata.getDevicename());
@@ -87,8 +74,6 @@ public class HomeController {
 		return "/Logout";
 	}
 
-	
-	
 	@RequestMapping(value = "/PublishInformationUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String userDevicePublish(String topicname, String b) throws ParseException, MqttException {
@@ -129,7 +114,7 @@ public class HomeController {
 		String target = "";
 		if (name != null && email != null && password != null && mobile != null) {
 			si.registration(name, mobile,email,password);
-			System.out.println("=============signup");
+			System.out.println("signup");
 			target = "redirect:/Login";
 		} 
 		else 

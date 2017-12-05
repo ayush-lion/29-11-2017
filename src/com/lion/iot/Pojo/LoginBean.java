@@ -1,7 +1,5 @@
 package com.lion.iot.Pojo;
 
-import javax.persistence.Column;
-
 public class LoginBean {
 	private Integer userid;
 	private String username;

@@ -3,31 +3,18 @@
 <html>
 <head>
 <title>Smart Home Automation</title>
-<link href='//fonts.googleapis.com/css?family=Lato:400,700'
-	rel='stylesheet' type='text/css'>
-<link href='https://api.cloudmqtt.com/sso/css/bootstrap.min.css'
-	rel='stylesheet' type='text/css'>
-<script src='https://api.cloudmqtt.com/sso/js/jquery.min.js'
-	type='text/javascript'></script>
-<script src='https://api.cloudmqtt.com/sso/js/bootstrap.min.js'
-	type='text/javascript'></script>
-<link
-	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
-	rel="stylesheet">
-<link
-	href="http://www.4liongroup.com/sockets/sai_admin/assets/css/bootstrap.css"
-	rel="stylesheet">
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery-1.10.2.js"></script>
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery3.1.js"></script>
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/bootstrap.js"></script>
-<script
-	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+<link href='https://api.cloudmqtt.com/sso/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+<script src='https://api.cloudmqtt.com/sso/js/jquery.min.js' type='text/javascript'></script>
+<script src='https://api.cloudmqtt.com/sso/js/bootstrap.min.js'	type='text/javascript'></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"rel="stylesheet">
+<link href="http://www.4liongroup.com/sockets/sai_admin/assets/css/bootstrap.css"rel="stylesheet">
+<script src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery-1.10.2.js"></script>
+<script src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery3.1.js"></script>
+<script src="http://www.4liongroup.com/sockets/sai_admin/assets/js/bootstrap.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script>
-
 	function toggleinput() {
 		var b = $("#fan").val();
 		var topicname = "fan";
@@ -41,7 +28,6 @@
 			}
 		});
 	}
-
 	function toggleinput1() {
 		var b = $("#light").val();
 		var topicname = "light";
@@ -57,7 +43,6 @@
 			}
 		});
 	}
-
 	function toggleinput2() {
 		var b = $("#washing_machine").val();
 		var topicname = "washing_machine";
@@ -76,7 +61,6 @@
 			}
 		});
 	}
-
 	function toggleinput3() {
 		var b = $("#air_conditioner").val();
 		var topicname = "air_conditioner";
@@ -95,11 +79,9 @@
 			}
 		});
 	}
-
 	function toggleinput4() {
 		var b = $("#bulb").val();
 		var topicname = "bulb";
-
 		$.ajax({
 			url :"PublishInformationUrl",
 			type : "post",
@@ -114,7 +96,6 @@
 			}
 		});
 	}
-
 	function toggleinput5() {
 		var b = $("#cfl").val();
 		var topicname = "cfl";
@@ -133,7 +114,6 @@
 			}
 		});
 	}
-
 	function toggleinput6() {
 		var b = $("#tubelight").val();
 		var topicname = "tubelight";
@@ -155,8 +135,7 @@
 	
 </script>
 </head>
-<body style="background-color: #2F4F4F;">
-
+<body>
 	<div>
 		<h1 align='center' style='margin-top: 20px'>Home Automation</h1>
 		<table class="table table-bordered "

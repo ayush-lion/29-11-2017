@@ -2,6 +2,8 @@ package com.lion.iot.Dao.Rdbms;
 
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthScrollBarUI;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -9,33 +11,35 @@ import com.lion.iot.Dao.DaoInterface;
 import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 import com.lion.iot.Pojo.UserRegistrationPojo;
+import com.lion.iot.Pojo.appliencePojo;
 
 public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 
 	@Override
-	public  boolean insertdeviceInformation(String topic1, String message1) {
-		/*int topi = topic1.lastIndexOf('/')+1;
+	public  void insertdeviceInformation(String topic1, String message1) {
+	
+	/*	int topi = topic1.lastIndexOf('/')+1;
 		String abc  = topic1.substring(topi, topic1.length());*/
-		
+	
 		UserDeviceInformationPojo obj = new UserDeviceInformationPojo();
-	/*	DetachedCriteria cre = DetachedCriteria.forClass(UserDeviceInformationPojo.class);
-		java.util.List<UserDeviceInformationPojo> emp = hibernateTemplate.findByCriteria(cre.add(Restrictions.like("devicename", abc, MatchMode.EXACT)));
-
+		DetachedCriteria cre = DetachedCriteria.forClass(UserDeviceInformationPojo.class);
+		java.util.List<UserDeviceInformationPojo> emp = hibernateTemplate.findByCriteria(cre.add(Restrictions.like("devicename", topic1, MatchMode.EXACT)));
+		
 		if (emp.size() == 0) {
-			obj.setDevicename(abc);
+			obj.setDevicename(topic1);
 			obj.setState(message1);
 			hibernateTemplate.save(obj);
 		} 
 		else 
 		{
+		for (UserDeviceInformationPojo us : emp) 
+		{
+			obj.setUserid(us.getUserid());
+			obj.setDevicename(topic1);
 			obj.setState(message1);
 			hibernateTemplate.update(obj);
-	    }*/
-		
-		obj.setDevicename(topic1);
-		obj.setState(message1);
-		hibernateTemplate.save(obj);
-		return true;
+		}
+     }
   }
 
 	@Override
@@ -92,5 +96,13 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 		DetachedCriteria cre = DetachedCriteria.forClass(LoginNewPojo.class);
 		List<LoginNewPojo> obj = hibernateTemplate.findByCriteria(cre);
 		return obj;	
+	}
+
+	@Override
+	public void insertdevice(String appliencename, String appliencestate) {
+		appliencePojo obj = new appliencePojo();
+		obj.setDevice(appliencename);
+		obj.setState(appliencestate);
+		hibernateTemplate.save(obj);
 	}
 }

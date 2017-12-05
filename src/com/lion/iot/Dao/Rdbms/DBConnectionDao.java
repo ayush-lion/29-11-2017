@@ -2,7 +2,6 @@ package com.lion.iot.Dao.Rdbms;
 
 import javax.sql.DataSource;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

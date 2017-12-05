@@ -1,12 +1,8 @@
 package com.lion.iot.Service.Impl;
 
-import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.lion.iot.Dao.DaoInterface;
 import com.lion.iot.Pojo.LoginBean;
 import com.lion.iot.Pojo.LoginNewPojo;
@@ -68,9 +64,8 @@ public class ServiceImpl implements ServiceInterface {
 	}
 
 	@Override
-	public boolean insertdeviceInformation(String topic1, String message1) {
+	public void insertdeviceInformation(String topic1, String message1) {
 		di.insertdeviceInformation(topic1, message1);
-		return true;
 	}
 
 	@Override
@@ -98,5 +93,11 @@ public class ServiceImpl implements ServiceInterface {
 	public List<LoginNewPojo> getEntries() {
 		List<LoginNewPojo> obj=di.getEntries();
 		return obj;
+	}
+
+	@Override
+	public void insertdevice(String appliencename, String appliencestate) {
+	
+	di.insertdevice(appliencename,appliencestate);	
 	}
 }

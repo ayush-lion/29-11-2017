@@ -1,7 +1,6 @@
 package com.lion.iot.Controller;
 
 import java.util.List;
-
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -23,7 +22,6 @@ import com.google.gson.Gson;
 import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Service.ServiceInterface;
 
-
 @Controller
 @EnableWebMvc
 
@@ -40,10 +38,10 @@ public class ServicesController {
 		MemoryPersistence persistence;
 		MqttConnectOptions conn;
 		
-		String broker = "tcp://m13.cloudmqtt.com:11855";
-		String password = "z1m3gr0y-7b8";
+		String broker = "tcp://m14.cloudmqtt.com:11688";
+		String password = "-8VuRqMCmUaG";
 		char[] accessKey = password.toCharArray();
-		String appEUI = "mizbloui";
+		String appEUI = "bhunimiy";
 		
 		persistence = new MemoryPersistence();
 		client = new MqttClient(broker, appEUI, persistence);
@@ -55,7 +53,6 @@ public class ServicesController {
 		System.out.println("device connected");
 		System.out.println("subscribe has been sucessfully");
 
-		
 		client.setCallback(new MqttCallback() {
 			
 			public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -75,7 +72,7 @@ public class ServicesController {
 				System.out.println("delivery Complete");
 			}
 		});
-		client.subscribe("/name/harvey/#");
+		client.subscribe("/device/control/#");
 		return "ok";
 	}
 	
@@ -98,15 +95,23 @@ public class ServicesController {
 		}
 	}
 	
+	@RequestMapping(value = "/addapplience", method = RequestMethod.POST)
+	@ResponseBody String addapplience(@RequestBody String device) throws ParseException {
+	JSONParser parser = new JSONParser();
+	JSONObject json = (JSONObject) parser.parse(device);	
+	
+	String appliencename=(String) json.get("name");
+	String appliencestate=(String) json.get("state");
+	
+	si.insertdevice(appliencename, appliencestate);	
+	return "ok";
+	}
+	
 	@RequestMapping(value = "/RegistrationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String registrationOuter(@RequestBody String insert) throws ParseException {
-
-		System.out.println("hello signup");
-
 		JSONParser parser = new JSONParser();
 		JSONObject json = (JSONObject) parser.parse(insert);
-
 		String name = (String) json.get("name");
 		String email = (String) json.get("email");
 		String password = (String) json.get("password");
@@ -175,10 +180,10 @@ public class ServicesController {
 		MqttClient client;
 		MemoryPersistence persistence;
 		MqttConnectOptions conn;
-		String broker = "tcp://m14.cloudmqtt.com:14634";
-		String password = "hUSJvHaANFCx";
+		String broker = "tcp://m14.cloudmqtt.com:11688";
+		String password = "-8VuRqMCmUaG";
 		char[] accessKey = password.toCharArray();
-		String appEUI = "rfqiqnyj";
+		String appEUI = "bhunimiy";
 
 		persistence = new MemoryPersistence();
 		client = new MqttClient(broker, appEUI, persistence);

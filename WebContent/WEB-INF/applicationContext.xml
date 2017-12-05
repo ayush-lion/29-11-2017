@@ -27,7 +27,8 @@
 			<list>
 				<value>com.lion.iot.Pojo.LoginNewPojo</value>
 				<value>com.lion.iot.Pojo.UserDeviceInformationPojo</value>
-				<value>com.lion.iot.Pojo.UserRegistrationPojo</value>						
+				<value>com.lion.iot.Pojo.UserRegistrationPojo</value>
+				<value>com.lion.iot.Pojo.appliencePojo</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
