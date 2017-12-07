@@ -1,39 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href='//fonts.googleapis.com/css?family=Lato:400,700'
-	rel='stylesheet' type='text/css'>
-<link href='https://api.cloudmqtt.com/sso/css/bootstrap.min.css'
-	rel='stylesheet' type='text/css'>
-<script src='https://api.cloudmqtt.com/sso/js/jquery.min.js'
-	type='text/javascript'></script>
-<script src='https://api.cloudmqtt.com/sso/js/bootstrap.min.js'
-	type='text/javascript'></script>
-<link
-	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
-	rel="stylesheet">
-<link
-	href="http://www.4liongroup.com/sockets/sai_admin/assets/css/bootstrap.css"
-	rel="stylesheet">
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery-1.10.2.js"></script>
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery3.1.js"></script>
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/bootstrap.js"></script>
-<script
-	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script
-	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link
-	href="http://www.4liongroup.com/sockets/sai_admin/assets/css/bootstrap.css"
-	rel="stylesheet">
-<script
-	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/bootstrap.js"></script>
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link href='//fonts.googleapis.com/css?family=Lato:400,700'rel='stylesheet' type='text/css'>
+<link href='https://api.cloudmqtt.com/sso/css/bootstrap.min.css'rel='stylesheet' type='text/css'>
+<script src='https://api.cloudmqtt.com/sso/js/jquery.min.js'type='text/javascript'></script>
+<script src='https://api.cloudmqtt.com/sso/js/bootstrap.min.js'	type='text/javascript'></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"rel="stylesheet">
+<link href="http://www.4liongroup.com/sockets/sai_admin/assets/css/bootstrap.css"rel="stylesheet">
+<script	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery-1.10.2.js"></script>
+<script	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/jquery3.1.js"></script>
+<script	src="http://www.4liongroup.com/sockets/sai_admin/assets/js/bootstrap.js"></script>
+<script	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<link href="http://www.4liongroup.com/sockets/sai_admin/assets/css/bootstrap.css" rel="stylesheet">
+<script src="http://www.4liongroup.com/sockets/sai_admin/assets/js/bootstrap.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src='https://customer.cloudmqtt.com/js/site.js?219776' type='text/javascript'></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
 <style>
 body {
 	font-family: "Lato", sans-serif;
@@ -128,8 +116,11 @@ body {
 						<input type="text" id="device">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default"
-							onclick="adddevice()" data-dismiss="modal">OK</button>
+						<button type="button" class="btn btn-default" onclick="adddevice()" data-dismiss="modal">OK</button>
+					</div>
+					
+					<div>
+					<input type = "hidden" value="0" id="default">
 					</div>
 				</div>
 			</div>
@@ -145,9 +136,14 @@ body {
 		</div>
 	</div>
 	<center>
-		<div id="content" class="devices">
-
-		</div>
+		
+			<c:forEach items="${devices}" var="device">
+			<div >
+				${device.device}<input  value="0"
+									type='checkbox' data-toggle='toggle' checked="true"><button onclick="remove(${device.id})">remove</button>
+				</div>
+			</c:forEach>
+		
 	</center>
 	
 	<br>
@@ -159,21 +155,89 @@ body {
 </body>
 </html>
 <script>
+
+
+$(document).ready(function() {
+    $.ajax({
+    	url  :"getAlldevice",
+    	type :"post",
+    	success : function(data){
+    		alert(data);
+    	},
+    	error : function(){
+    	}
+    });
+});
+
+function remove(id){
+	$.ajax({
+    	url  :"removedevice",
+    	type :"post",
+    	data : {id : id},
+    	success : function(data){
+    	location.reload();
+    	},
+    	error : function(){
+    	}
+    });
+}
+
+/* Subscription */	
+
+/* After Subscription */
 	
 	function adddevice() {
 		var div = document.createElement('div');
 		var v = $("#device").val();
 	    div.className = 'row';
 
-	    div.innerHTML = '<br><br><label>'+v+'</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
-	         <input type="checkbox" name="check" value="1" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\
-	        <input type="button" value="x" onclick="removeRow(this)">';
-	     document.getElementById('content').appendChild(div);
+	    
+	    var device = $("#device").val();
+	    var value = $("#default").val(); 
+	    $.ajax({
+			url :"makeProfile",
+			type : "post",
+			data : {device : device,value : value},
+			success : function(data) {	
+				location.reload();
+			},
+			error : function() {
+			}
+		});
+	 }
+	  
+	function submit(){
+		var v=$("#check").val();
+		alert(v);
+		
+		$.ajax({
+			url : "Publish",
+			type : "post",
+			data : {value : v},
+			success : function (data){
+			alert(data);
+			},
+			error : function(){
+			alert("error");	
+			},
+		});
 	}
-
+	
 	function removeRow(input) {
 	    document.getElementById('content').removeChild( input.parentNode );
+	    
+	    $.ajax({
+	    	url  :"removeDevice",
+	    	type :"post",
+	    	success : function(data){
+	    	alert(data);		
+	    	},
+	    	error : function(){
+	    		
+	    	}
+	    });
 	}
+	
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "250px";
 		document.getElementById("main").style.marginLeft = "250px";

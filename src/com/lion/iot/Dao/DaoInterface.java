@@ -5,6 +5,7 @@ import java.util.List;
 import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 import com.lion.iot.Pojo.UserRegistrationPojo;
+import com.lion.iot.Pojo.appliencePojo;
 
 public interface DaoInterface {
 	
@@ -14,5 +15,8 @@ public interface DaoInterface {
 	List<UserDeviceInformationPojo> recentdata();
 	List<LoginNewPojo> newRegistration(String name, String email);
 	List<LoginNewPojo> getEntries();
-	void insertdevice(String appliencename, String appliencestate);
+
+	void addDevice(String device, String value);
+	void remove(int id);
+	List<appliencePojo> getAll();
 }

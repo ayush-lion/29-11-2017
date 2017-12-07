@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.lion.iot.Pojo.LoginDetail;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 import com.lion.iot.Pojo.UserRegistrationPojo;
+import com.lion.iot.Pojo.appliencePojo;
 import com.lion.iot.Service.ServiceInterface;
 
 @Controller
@@ -30,6 +31,16 @@ public class HomeController {
 	@Autowired
 	ServiceInterface si;
 
+	@RequestMapping(value = "/AjaxUrl", method = RequestMethod.POST)
+	@ResponseBody
+	public String jsSubscribtion(String topic,String message) {
+		System.out.println("hit to hua");
+		
+		System.out.println(topic);
+		System.out.println(message);
+		return "ok";
+	}
+	
 	@RequestMapping(value = "/Login")
 	public String login() {
 		return "login";
@@ -39,6 +50,29 @@ public class HomeController {
 	@ResponseBody
 	public String LoginPage(@RequestBody String retrive) {
 		return "ok";
+	}
+	
+	@RequestMapping(value = "/removedevice")
+	public String remove(int id) {
+		si.remove(id);
+		return "/userPanel";
+	}
+	
+	@RequestMapping(value = "/removeDevice", method = RequestMethod.POST)
+	@ResponseBody
+	public String remove(Integer id) {	
+	
+	si.remove(id);	
+	return"ok";	
+	}
+
+	@RequestMapping(value = "/makeProfile", method = RequestMethod.POST)
+	@ResponseBody
+	public String addDevice(String device , String value) {
+		
+		System.out.println("controller make profile");
+		si.addDevice(device, value);
+		return "ok";	
 	}
 
 	@RequestMapping(value = "/secureLoginUrl", method = RequestMethod.POST)
@@ -57,6 +91,8 @@ public class HomeController {
 					System.out.println(devicedata.getDevicename());
 					System.out.println(devicedata.getState());
 				}
+				List<appliencePojo> devices=si.getAll();
+				model.addAttribute("devices", devices);
 				model.addAttribute("device", device);
 
 				return target;
@@ -73,21 +109,20 @@ public class HomeController {
 	public String Logout(@RequestBody String insert) throws ParseException {
 		return "/Logout";
 	}
-
-	@RequestMapping(value = "/PublishInformationUrl", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/Publish", method = RequestMethod.POST)
 	@ResponseBody
-	public String userDevicePublish(String topicname, String b) throws ParseException, MqttException {
+	public String userDevicePublish(String value) throws ParseException, MqttException {
 		
-		System.out.println("hit hora h : "+topicname+"\t"+b);
-		topicname = "/name/harvey/state/" + topicname;
-		System.out.println("ye h value: "+topicname);
+		System.out.println("service hit to huii");
+		String topicname = "/device/control/";
 		MqttClient client;
 		MemoryPersistence persistence;
 		MqttConnectOptions conn;
-		String broker = "tcp://m21.cloudmqtt.com:16336";
-		String password = "4EkhqK7ma9Pa";
+		String broker = "tcp://m14.cloudmqtt.com:11688";
+		String password = "-8VuRqMCmUaG";
 		char[] accessKey = password.toCharArray();
-		String appEUI = "znvlpcqy";
+		String appEUI = "bhunimiy";
 
 		persistence = new MemoryPersistence();
 		client = new MqttClient(broker, appEUI, persistence);
@@ -97,7 +132,7 @@ public class HomeController {
 		conn.setUserName(appEUI);
 		client.connect(conn);
 		System.out.println("connect ho gaya");
-		MqttMessage messagetext = new MqttMessage(b.toString().getBytes());
+		MqttMessage messagetext = new MqttMessage(value.toString().getBytes());
 		client.publish(topicname, messagetext);
 		System.out.println("publish ho gaya h bhai");
 		return "ok";

@@ -94,19 +94,7 @@ public class ServicesController {
 			return "Incorrect LoginId or Password";
 		}
 	}
-	
-	@RequestMapping(value = "/addapplience", method = RequestMethod.POST)
-	@ResponseBody String addapplience(@RequestBody String device) throws ParseException {
-	JSONParser parser = new JSONParser();
-	JSONObject json = (JSONObject) parser.parse(device);	
-	
-	String appliencename=(String) json.get("name");
-	String appliencestate=(String) json.get("state");
-	
-	si.insertdevice(appliencename, appliencestate);	
-	return "ok";
-	}
-	
+		
 	@RequestMapping(value = "/RegistrationOuterUrl", method = RequestMethod.POST)
 	@ResponseBody
 	public String registrationOuter(@RequestBody String insert) throws ParseException {

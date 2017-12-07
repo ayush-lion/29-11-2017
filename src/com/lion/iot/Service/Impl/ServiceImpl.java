@@ -8,6 +8,7 @@ import com.lion.iot.Pojo.LoginBean;
 import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
 import com.lion.iot.Pojo.UserRegistrationPojo;
+import com.lion.iot.Pojo.appliencePojo;
 import com.lion.iot.Service.ServiceInterface;
 
 public class ServiceImpl implements ServiceInterface {
@@ -96,8 +97,19 @@ public class ServiceImpl implements ServiceInterface {
 	}
 
 	@Override
-	public void insertdevice(String appliencename, String appliencestate) {
+	public void addDevice(String device, String value) {
 	
-	di.insertdevice(appliencename,appliencestate);	
+	di.addDevice(device, value);	
+	}
+
+	@Override
+	public void remove(int id) {
+	
+	di.remove(id);	
+	}
+
+	@Override
+	public List<appliencePojo> getAll() {
+	return di.getAll();
 	}
 }

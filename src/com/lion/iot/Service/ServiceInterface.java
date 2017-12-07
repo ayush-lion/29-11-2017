@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import com.lion.iot.Pojo.LoginNewPojo;
 import com.lion.iot.Pojo.UserDeviceInformationPojo;
+import com.lion.iot.Pojo.appliencePojo;
 
 public interface ServiceInterface {
 
@@ -22,5 +23,9 @@ public interface ServiceInterface {
 
 	List<LoginNewPojo> getEntries();
 
-	void insertdevice(String appliencename, String appliencestate);
+	void addDevice(String device, String value);
+
+	void remove(int id);
+
+	List<appliencePojo> getAll();
 }

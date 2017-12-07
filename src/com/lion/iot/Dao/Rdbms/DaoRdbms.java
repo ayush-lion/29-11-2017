@@ -85,6 +85,16 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 	}
 	
 	@Override
+	public void remove(int id) {
+	
+		
+	appliencePojo device = hibernateTemplate.get(appliencePojo.class, id);
+	hibernateTemplate.delete(device);
+	
+	
+	}
+	
+	@Override
 	public List<UserDeviceInformationPojo> recentdata() {
 		DetachedCriteria cre = DetachedCriteria.forClass(UserDeviceInformationPojo.class);
 		java.util.List<UserDeviceInformationPojo> device = hibernateTemplate.findByCriteria(cre);
@@ -99,10 +109,18 @@ public class DaoRdbms extends DBConnectionDao implements DaoInterface {
 	}
 
 	@Override
-	public void insertdevice(String appliencename, String appliencestate) {
+	public void addDevice(String device, String value) {
+		// TODO Auto-generated method stub
 		appliencePojo obj = new appliencePojo();
-		obj.setDevice(appliencename);
-		obj.setState(appliencestate);
+		obj.setDevice(device);
+		obj.setState(value);
 		hibernateTemplate.save(obj);
+	}
+
+	@Override
+	public List<appliencePojo> getAll() {
+		DetachedCriteria cre = DetachedCriteria.forClass(appliencePojo.class);
+		List<appliencePojo> applienceList=hibernateTemplate.findByCriteria(cre);
+		return applienceList;
 	}
 }
